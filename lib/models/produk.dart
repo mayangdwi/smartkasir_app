@@ -1,71 +1,119 @@
 class Produk {
-  final int id;
+  final int? id;
+  final String kodeProduk;
   final String nama;
   final String kategori;
-  final double harga;
+  final double hargaBeli;
+  final double hargaJual;
   final int stok;
   final String gambarUrl;
   final int diskonPersen;
 
-  Produk({
-    required this.id,
+  const Produk({
+    this.id,
+    required this.kodeProduk,
     required this.nama,
     required this.kategori,
-    required this.harga,
+    required this.hargaBeli,
+    required this.hargaJual,
     required this.stok,
     required this.gambarUrl,
     this.diskonPersen = 0,
   });
+
+  // Mengubah objek Produk menjadi Map untuk SQLite
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'kode_produk': kodeProduk,
+      'nama_produk': nama,
+      'kategori': kategori,
+      'harga_beli': hargaBeli,
+      'harga_jual': hargaJual,
+      'stok': stok,
+      'gambar_path': gambarUrl,
+      'diskon_persen': diskonPersen,
+      'created_at': DateTime.now().toIso8601String(),
+    };
+  }
+
+  // Mengubah data SQLite menjadi objek Produk
+  factory Produk.fromMap(Map<String, dynamic> map) {
+    return Produk(
+      id: map['id'] as int?,
+      kodeProduk: map['kode_produk'] as String,
+      nama: map['nama_produk'] as String,
+      kategori: map['kategori'] as String,
+      hargaBeli: (map['harga_beli'] as num).toDouble(),
+      hargaJual: (map['harga_jual'] as num).toDouble(),
+      stok: map['stok'] as int,
+      gambarUrl: map['gambar_path'] as String? ?? '',
+      diskonPersen: map['diskon_persen'] as int? ?? 0,
+    );
+  }
 }
 
-final List<Produk> dummyProduk = [
-  Produk(
-    id: 1,
-    nama: 'Nasi Goreng',
-    kategori: 'Makanan',
-    harga: 15000,
-    stok: 10,
-    gambarUrl: 'https://picsum.photos/200?1',
-    diskonPersen: 20,
-  ),
-  Produk(
-    id: 2,
-    nama: 'Mie Goreng',
-    kategori: 'Makanan',
-    harga: 12000,
-    stok: 4,
-    gambarUrl: 'https://picsum.photos/200?2',
-  ),
-  Produk(
-    id: 3,
-    nama: 'Es Teh',
+// Data awal produk bawaan SmartKasir
+final List<Produk> produkAwalSQLite = [
+  const Produk(
+    kodeProduk: 'PRD-001',
+    nama: 'Kopi Susu Gula Aren 250ml',
     kategori: 'Minuman',
-    harga: 5000,
-    stok: 20,
-    gambarUrl: 'https://picsum.photos/200?3',
+    hargaBeli: 10000,
+    hargaJual: 18000,
+    stok: 24,
+    gambarUrl:
+        'https://images.unsplash.com/photo-1541167760496-1628856ab772?w=500',
   ),
-  Produk(
-    id: 4,
-    nama: 'Kopi Susu',
+  const Produk(
+    kodeProduk: 'PRD-002',
+    nama: 'Roti Bakar Cokelat Keju',
+    kategori: 'Makanan',
+    hargaBeli: 8000,
+    hargaJual: 15000,
+    stok: 5,
+    gambarUrl:
+        'https://images.unsplash.com/photo-1584776296944-ab6fb57b0bdd?w=500',
+  ),
+  const Produk(
+    kodeProduk: 'PRD-003',
+    nama: 'Matcha Latte Ice',
     kategori: 'Minuman',
-    harga: 10000,
+    hargaBeli: 12000,
+    hargaJual: 22000,
     stok: 0,
-    gambarUrl: 'https://picsum.photos/200?4',
+    gambarUrl:
+        'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=500',
   ),
-  Produk(
-    id: 5,
-    nama: 'Keripik',
-    kategori: 'Snack',
-    harga: 8000,
-    stok: 3,
-    gambarUrl: 'https://picsum.photos/200?5',
+  const Produk(
+    kodeProduk: 'PRD-004',
+    nama: 'Nasi Goreng Banjar Spesial',
+    kategori: 'Makanan',
+    hargaBeli: 15000,
+    hargaJual: 25000,
+    stok: 12,
+    gambarUrl:
+        'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=500',
+    diskonPersen: 10,
   ),
-  Produk(
-    id: 6,
-    nama: 'Roti Cokelat',
+  const Produk(
+    kodeProduk: 'PRD-005',
+    nama: 'Keripik Singkong Pedas Manis',
     kategori: 'Snack',
-    harga: 7000,
-    stok: 15,
-    gambarUrl: 'https://picsum.photos/200?6',
+    hargaBeli: 6000,
+    hargaJual: 12000,
+    stok: 30,
+    gambarUrl:
+        'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=500',
+  ),
+  const Produk(
+    kodeProduk: 'PRD-006',
+    nama: 'Pisang Goreng Pasir Crispy',
+    kategori: 'Snack',
+    hargaBeli: 7000,
+    hargaJual: 14000,
+    stok: 8,
+    gambarUrl:
+        'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=500',
   ),
 ];
