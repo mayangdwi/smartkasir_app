@@ -91,7 +91,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
               await DatabaseHelper.instance.deleteProduk(item.id!);
 
-              if (!mounted) return;
+              if (!context.mounted) return;
 
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(

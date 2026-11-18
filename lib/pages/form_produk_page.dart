@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 
 import '../models/produk.dart';
 import '../helpers/database_helper.dart';
@@ -35,12 +34,6 @@ class _FormProdukPageState extends State<FormProdukPage> {
   ];
 
   bool _sedangMenyimpan = false;
-
-  final _currencyFormat = NumberFormat.currency(
-    locale: 'id_ID',
-    symbol: 'Rp ',
-    decimalDigits: 0,
-  );
 
   bool get _isEditMode => widget.produk != null;
 
@@ -225,7 +218,7 @@ class _FormProdukPageState extends State<FormProdukPage> {
 
               // 3. KATEGORI
               DropdownButtonFormField<String>(
-                value: _kategoriTerpilih,
+                initialValue: _kategoriTerpilih,
                 decoration: InputDecoration(
                   labelText: 'Kelompok Kategori',
                   prefixIcon: const Icon(Icons.category_outlined),
